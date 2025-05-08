@@ -49,6 +49,12 @@
                     <td>Satuan Terima</td>
                     <td>Jumlah Harga</td>
                     <td>Metode Pembayaran</td>
+                    <td>PO</td>
+                    <td>Supplier</td>
+                    <td>PPN</td>
+                    <td>PPH</td>
+                    <td>Inv</td>
+                    <td>NI</td>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +77,12 @@
                     <td>${IN.satuanterima}</td>
                     <td>${IN.jumlah}</td>
                     <td>${IN.tipepembayaran}</td>
+                    <td>${IN.pono}</td>
+                    <td>${IN.supplier}</td>
+                    <td>${IN.usevat}</td>
+                    <td>${IN.useincometax}</td>
+                    <td>${IN.invoice}</td>
+                    <td>${IN.nino}</td>
                     <!--<td>${SJ['Satuan Barang']}</td>-->
                 </tr>
                 <tr class="active">
@@ -78,7 +90,7 @@
                     <td class="text-right"><strong>${AmountTotal1}</strong></td>
                     <td></td>
                     <td class="text-right"><strong>${AmountTotal2}</strong></td>
-                    <td></td>
+                    <td  colspan="7"></td>
                 </tr>
             </tbody>
         </table>
