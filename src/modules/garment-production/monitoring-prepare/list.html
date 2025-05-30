@@ -2,7 +2,10 @@
   <au-input-form title.bind="title" with.bind="context">
     <style>
         table>tbody>tr>td {
-            white-space: pre;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 400px;
         }
     </style>
 
@@ -59,11 +62,11 @@
             <require from="../../../lib/number-format-value-converter"></require>
             <tr repeat.for="item of data">
                 <td class="text-center">${item.roJob}</td>
-                <td class="text-center">${item.article}</td>
+                <td class="text-left">${item.article}</td>
                 <td class="text-center">${item.productCode}</td>
                 <td class="text-center">${item.uomUnit}</td>
                 <td class="text-center">${item.roAsal}</td>
-                <td class="text-center">${item.remark}</td>
+                <td class="text-left">${item.remark}</td>
                 <td class="text-right">${item.stocks}</td>
                 <td class="text-right">${item.receipts}</td>
                 <td class="text-right">${item.mainFabricExpenditures}</td>
