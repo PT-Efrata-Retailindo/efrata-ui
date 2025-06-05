@@ -33,7 +33,7 @@ export class DataForm {
         this.authService=authService;
     }
 
-     bind(context) {
+    bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
@@ -266,10 +266,15 @@ export class DataForm {
                     Items.IsSave = Items.Quantity > 0;
                     Items.IsDisabled = !(Items.Quantity > 0);
 
+                    Items.Rack = item.Rack;
+                    Items.Level = item.Level;
+                    Items.Box = item.Box;
+                    Items.Colour = item.Colour;
+                    Items.Area = item.Area;
+                    
                     this.data.Items.push(Items);
                 }
             }
-            console.log(this.data.Items)
             this.isItem = true;
         }
         else{
@@ -297,5 +302,21 @@ export class DataForm {
             "Jumlah Keluar",
             "Satuan",
             "Tipe Fabric"],
+    };
+    itemsFabric = {
+        columns: [
+            "Kode Buyer",
+            "Kode Barang",
+            "Nama Barang",
+            "Keterangan Barang",
+            "Design / Color",
+            "Jumlah Keluar",
+            "Satuan",
+            "Tipe Fabric",
+            "Warna",
+            "Rak",
+            "Box",
+            "Level",
+            "Area",],
     };
 }
