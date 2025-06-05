@@ -35,7 +35,8 @@ export class DataForm {
     @bindable RONoJob;
 
     typeUnitDeliveryOrderOptions = ['PROSES', 'TRANSFER','SISA', 'SUBCON','TRANSFER SAMPLE'];//, 'SAMPLE'
-
+    
+    itemToException = ["SUBCON", "WASH", "EMBROIDERY", "PROCCES"];
     controlOptions = {
         label: {
             align: "left",
@@ -76,6 +77,22 @@ export class DataForm {
                 "Jumlah DO",
                 "Satuan",
                 "Tipe Fabric"
+            ];
+
+            this.itemsFabric.columns = [
+              "Kode Barang",
+              "Nama Barang",
+              "Keterangan Barang",
+              "RO Asal",
+              "Jumlah DO Awal",
+              "Jumlah DO",
+              "Satuan",
+              "Tipe Fabric",
+              "Warna",
+              "Rak",
+              "Box",
+              "Level",
+              "Area",
             ];
         }
         
@@ -137,6 +154,7 @@ export class DataForm {
             rONoFilter.Type = this.data.UnitDOType;
             rONoFilter.RONo = this.data.RONo;
             rONoFilter.StorageId = this.data.Storage._id;
+            rONoFilter.StorageName = this.data.Storage.name;
         }
         return rONoFilter;
     }
@@ -185,9 +203,11 @@ export class DataForm {
             };
             return this.service.searchMoreDOItems(info)
                 .then((result) => {
-                    console.log(result)
-                    let itemIds = this.data.Items.map(i => i.URNItemId);
-                    return result.data.filter(data => data && itemIds.indexOf(data.URNItemId) < 0);
+                    
+                    // let itemIds = this.data.Items.map(i => i.URNItemId);
+                    let itemIds = this.data.Items.map((i) => i.DOItemsId);
+                    // return result.data.filter(data => data && itemIds.indexOf(data.URNItemId) < 0);
+                    return result.data.filter((data) => data && itemIds.indexOf(data.DOItemsId) < 0);
                 });
         }
     }
@@ -344,11 +364,13 @@ export class DataForm {
         // this.data.Items = this.dataItems;
         this.data.Items = [];
         this.dataItems = [];
-
+        this.RONoJob = this.RONoJob ? this.RONoJob.toUpperCase() : null;
+        this.RONo = this.RONo ? this.RONo.toUpperCase() : null;
         if(this.isTransfer){
             // var filter = JSON.stringify({ RONo: this.RONoJob });
             var filter = JSON.stringify({
                 RO_Number: this.RONoJob,
+                IsPosted: true,
                 IsApprovedKadivMD : true
             });
 
@@ -404,7 +426,16 @@ export class DataForm {
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
                                 Items.CustomsCategory=item.CustomsCategory;
-                                this.dataItems.push(Items);
+
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+                                // this.dataItems.push(Items);
+                                if (!this.itemToException.includes(Items.ProductName)) {
+                                  this.dataItems.push(Items);
+                                }
                             }
                         }
                         this.data.Items = this.dataItems;
@@ -461,8 +492,16 @@ export class DataForm {
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
                                 Items.CustomsCategory=item.CustomsCategory;
-                
-                                this.dataItems.push(Items);
+
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+                                // this.dataItems.push(Items);
+                                if (!this.itemToException.includes(Items.ProductName)) {
+                                  this.dataItems.push(Items);
+                                }
                             }
                         }
                         this.data.Items = this.dataItems;
@@ -472,6 +511,7 @@ export class DataForm {
             // var filter = JSON.stringify({ RONo: this.RONoJob });
             var filter = JSON.stringify({
                 RO_Number: this.RONo,
+                IsPosted: true,
                 IsApprovedKadivMD : true
             });
 
@@ -483,20 +523,62 @@ export class DataForm {
             this.data.RONo = this.RONo;
             var ro=[];
              // this.service.getGarmentEPOByRONo(info)
-             this.salesService.GetArticleCC(info)
-             .then((cc) => {
-                 for (var a of cc.data) {
-                     if (a.RO_Number == this.data.RONo) {
-                         ro.push(a); break;
-                     }
-                 }
-                 if (ro.length) {
-                     this.data.Article = ro[0].Article;
-                     this.error.Article = null;
-                 } else {
-                     this.data.Article = this.data.RONo;
-                    //  this.error.Article = "Artikel tidak ditemukan."
-                 }
+             if(!this.isRemain){
+              this.salesService.GetArticleCC(info).then((cc) => {
+                for (var a of cc.data) {
+                  if (a.RO_Number == this.data.RONo) {
+                    ro.push(a);
+                    break;
+                  }
+                }
+                this.data.Article = ro[0].Article;
+                
+                //data for article if remain
+              })}else{
+                var filter = JSON.stringify({ RONo: this.RONo });
+                  // var filter = JSON.stringify({
+                  //     RO_Number: this.RONo,
+                  //     IsApprovedKadivMD : true
+                  // });
+            
+                  var info = {
+                    keyword: this.RONo,
+                    filter: filter,
+                  };
+                  this.service
+                  .getGarmentEPOByRONo(info)
+                  // this.salesService.GetArticleCC(info)
+                  .then((cc) => {
+                    for (var a of cc.data) {
+                      // if (a.RO_Number == this.data.RONo) {
+                      if (a.RONo == this.data.RONo) {
+                        ro.push(a);
+                        break;
+                      }
+                    }
+                    if (ro.length) {
+                      this.data.Article = ro[0].Article;
+                      this.error.Article = null;
+                    } else {
+                      this.data.Article = null;
+                      this.error.Article = "Artikel tidak ditemukan.";
+                    }
+                  });
+              }
+            //  this.salesService.GetArticleCC(info)
+            //  .then((cc) => {
+            //      for (var a of cc.data) {
+            //          if (a.RO_Number == this.data.RONo) {
+            //              ro.push(a); break;
+            //          }
+            //      }
+            //      if (ro.length) {
+            //          this.data.Article = ro[0].Article;
+            //          this.error.Article = null;
+            //      } else {
+            //          this.data.Article = this.data.RONo;
+            //         //  this.error.Article = "Artikel tidak ditemukan."
+            //      }
                     this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
                     .then(result=>{
                         if(result.data.length>0){
@@ -527,14 +609,23 @@ export class DataForm {
                                 Items.IsSave = Items.Quantity > 0;
                                 Items.IsDisabled = !(Items.Quantity > 0);
                                 Items.CustomsCategory=item.CustomsCategory;
-                
-                                this.dataItems.push(Items);
-                            }
+
+                                Items.Rack = item.Rack;
+                                Items.Level = item.Level;
+                                Items.Box = item.Box;
+                                Items.Colour = item.Colour;
+                                Items.Area = item.Area;
+                                //this.dataItems.push(Items);
+                                  if (!this.itemToException.includes(Items.ProductName)) {
+                                  this.dataItems.push(Items);
+                                }
+                              }
                         }
                         this.data.Items = this.dataItems;
-                    })
-                }); 
-        }
+                    });
+                } 
+        
+      
 
         // this.service.searchDOItems({ filter: JSON.stringify({ RONo: this.data.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id}) })
         //     .then(result=>{
@@ -686,7 +777,8 @@ export class DataForm {
             this.service.searchDOItems({ filter: JSON.stringify({ RONo: newValue.RONo, UnitId:this.data.UnitSender.Id, StorageId:this.data.Storage.Id ? this.data.Storage.Id : this.data.Storage._id, POSerialNumber : newValue.POSerialNumber, DOItemsId: newValue.DOItemsId}) })
                     .then(result=>{
                         var selectedROHeader= result.data[0];
-                        this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
+                        if (!this.itemToException.includes(selectedROHeader.ProductName)) {
+                          this.newProduct.DOItemsId = selectedROHeader.DOItemsId;
                         this.newProduct.URNItemId = selectedROHeader.URNItemId;
                         this.newProduct.URNNo = selectedROHeader.URNNo;
                         this.newProduct.DODetailId = selectedROHeader.DODetailId;
@@ -710,6 +802,16 @@ export class DataForm {
                         this.newProduct.Quantity = this.newProduct.DefaultDOQuantity;
                         this.newProduct.IsSave = this.newProduct.Quantity > 0;
                         this.newProduct.IsDisabled = !(this.newProduct.Quantity > 0);
+
+                        this.newProduct.Rack = selectedROHeader.Rack;
+                        this.newProduct.Level = selectedROHeader.Level;
+                        this.newProduct.Box = selectedROHeader.Box;
+                        this.newProduct.Colour = selectedROHeader.Colour;
+                        this.newProduct.Area = selectedROHeader.Area;
+                        }else{
+                          this.newProduct.IsDisabled = true;
+                        }
+                        
                     });
             
         }
@@ -734,8 +836,10 @@ export class DataForm {
     
 
     roNoView = (rono) => {
-        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity}`;
-    }
+        //return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity}`;
+        return `${rono.RONo} - ${rono.ProductCode} - ${rono.ProductName} - ${rono.POSerialNumber} - ${rono.RemainingQuantity} - ${rono.Colour}`;
+
+      }
 
     unitRequestView = (unitRequest) => {
         return `${unitRequest.Code} - ${unitRequest.Name}`
@@ -754,7 +858,7 @@ export class DataForm {
     async addProduct() {
         if (this.newProduct && this.newProduct.ProductId) {
             this.data.Items.push(this.newProduct);
-            this.options.checkedAll = this.data.Items.filter(item => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
+            this.options.checkedAll = this.data.Items.filter((item) => item.IsDisabled === false).reduce((acc, curr) => acc && curr.IsSave, true);
             this.context.ItemsCollection.bind();
             this.newProduct = {};
             this.RONoHeader = null;
@@ -772,6 +876,22 @@ export class DataForm {
             "Tipe Fabric"
         ],
     };
+    itemsFabric = {
+    columns: [
+      "Kode Barang",
+      "Nama Barang",
+      "Keterangan Barang",
+      "RO Asal",
+      "Jumlah DO Awal",
+      "Satuan",
+      "Tipe Fabric",
+      "Warna",
+      "Rak",
+      "Box",
+      "Level",
+      "Area",
+    ],
+  };
 
     // get isSupplierReceipt() {
     //     return this.data.unitDOType && (this.data.unitDOType == "SUBCON");
