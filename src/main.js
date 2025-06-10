@@ -30,80 +30,28 @@ export async function configure(aurelia) {
                 }
             }
 
-
-            var core = "https://com-efrata-service-core.azurewebsites.net/v1/";
-            var auth = "https://com-efrata-service-auth.azurewebsites.net/v1/";
-            var production = "https://dl-production-webapi.azurewebsites.net/v1/";
-            var productionAzure = "https://com-efrata-service-finishing-printing.azurewebsites.net/v1/";
-            var purchasing = "https://dl-purchasing-webapi.azurewebsites.net/v1/";
-            var purchasingAzure = "https://com-efrata-service-purchasing.azurewebsites.net/v1/";
-            var garmentPurchasing = "https://dl-purchasing-garment-webapi.azurewebsites.net/v1/";
-            var inventory = "https://dl-inventory-webapi.azurewebsites.net/v1/";
-            var inventoryAzure = "https://com-efrata-service-inventory.azurewebsites.net/v1/";
-            var garmentMasterPlan = "https://dl-garment-master-plan-webapi.azurewebsites.net/v1/";
-            var spMasterPlan = "https://dl-sp-master-plan-webapi.mybluemix.net/v1/";
-            var spinning = "https://com-efrata-service-spinning.azurewebsites.net/";
-            var intPurchasing = "https://com-efrata-service-internal-transfer.azurewebsites.net/v1/";
-            var customsReport = "https://com-efrata-service-support.azurewebsites.net/v1/";
-            var merchandiser = "https://com-efrata-service-md.azurewebsites.net/v1/";
-            const dealTracking = 'https://com-efrata-service-deal-tracking.azurewebsites.net/v1/';
-            const sales = "https://com-efrata-service-sales.azurewebsites.net/v1/";
-            var weaving = "https://com-efrata-service-weaving.azurewebsites.net/";
-            var finance = "https://com-efrata-service-finance-accounting.azurewebsites.net/v1/";
-            var garmentProduction = "https://com-efrata-service-garment.azurewebsites.net/";
-            var packingInventory = "https://com-efrata-service-packing-inventory.azurewebsites.net/v1/";
-            var dyeing = "https://dyeing-printing-etl-service.azurewebsites.net/api/";
+            var core = "https://com-efrata-service-core-dev.azurewebsites.net/v1/";
+            var auth = "https://com-efrata-service-auth-dev.azurewebsites.net/v1/";
+            var productionAzure = "https://com-efrata-service-finishing-printing-dev.azurewebsites.net/v1/";
+            var purchasingAzure = "https://com-efrata-service-purchasing-dev.azurewebsites.net/v1/";
+            var inventoryAzure = "https://com-efrata-service-inventory-dev.azurewebsites.net/v1/";
+            const sales = "https://com-efrata-service-sales-dev.azurewebsites.net/v1/";
+            var finance = "https://com-efrata-service-finance-accounting-dev.azurewebsites.net/v1/";
+            var garmentProduction = "https://com-efrata-service-garment-dev.azurewebsites.net/";
+            var packingInventory = "https://com-efrata-service-packing-inventory-dev.azurewebsites.net/v1/";
+            
             const garmentShipping = "https://garment-etl-service.azurewebsites.net/api/";
-            var ItInven = "https://it-inventory-etl-service.azurewebsites.net/api/";
-
-            // var core = "https://com-efrata-service-core-uat-uat.azurewebsites.net/v1/";
-            // var auth = "https://com-efrata-service-auth-uat-uat.azurewebsites.net/v1/";
-            // var production = "https://dl-production-webapi-uat.azurewebsites.net/v1/";
-            // var productionAzure = "https://com-efrata-service-finishing-printing-uat.azurewebsites.net/v1/";
-            // var purchasing = "https://dl-purchasing-webapi-uat.azurewebsites-uat.net/v1/";
-            // var purchasingAzure = "http://localhost:59051/v1/";
-            // var garmentPurchasing = "https://dl-purchasing-garment-webapi-uat.azurewebsites.net/v1/";
-            // var inventory = "https://dl-inventory-webapi-uat.azurewebsites.net/v1/";
-            // var inventoryAzure = "https://com-efrata-service-inventory-uat-uat.azurewebsites.net/v1/";
-            // var garmentMasterPlan = "https://dl-garment-master-plan-webapi-uat.azurewebsites.net/v1/";
-            // var spMasterPlan = "https://dl-sp-master-plan-webapi.mybluemix.net/v1/";
-            // var spinning = "https://com-efrata-service-spinning-uat.azurewebsites.net/";
-            // var intPurchasing = "https://com-efrata-service-internal-transfer-uat.azurewebsites.net/v1/";
-            // var customsReport = "https://com-efrata-service-support-uat.azurewebsites.net/v1/";
-            // var merchandiser = "https://com-efrata-service-md-uat.azurewebsites.net/v1/";
-            // const dealTracking = 'https://com-efrata-service-deal-tracking-uat.azurewebsites.net/v1/';
-            // const sales = "http://localhost:51465/v1/";
-            // var weaving = "https://com-efrata-service-weaving-uat.azurewebsites.net/";
-            // var finance = "https://com-efrata-service-finance-accounting-uat-uat.azurewebsites.net/v1/";
-            //var garmentProduction = "http://localhost:5005/";
-            // var packingInventory = "https://com-efrata-service-packing-inventory-uat-uat.azurewebsites.net/v1/";
-            // var dyeing = "https://dyeing-printing-etl-service-uat.azurewebsites.net/api/";
-            // const garmentShipping = "https://garment-etl-service-uat.azurewebsites.net/api/";
-            // var ItInven = "https://it-inventory-etl-service-uat.azurewebsites.net/api/";
 
             config.registerEndpoint('auth', auth);
             config.registerEndpoint('core', core);
-            config.registerEndpoint('production', production, defaultConfig);
             config.registerEndpoint('production-azure', productionAzure, defaultConfig);
-            config.registerEndpoint('purchasing', purchasing, defaultConfig);
             config.registerEndpoint('purchasing-azure', purchasingAzure, defaultConfig);
-            config.registerEndpoint('garment-purchasing', garmentPurchasing, defaultConfig);
-            config.registerEndpoint('inventory', inventory, defaultConfig);
             config.registerEndpoint('inventory-azure', inventoryAzure, defaultConfig);
-            config.registerEndpoint('garment-master-plan', garmentMasterPlan, defaultConfig);
-            config.registerEndpoint('spinning', spinning, defaultConfig);
-            config.registerEndpoint('int-purchasing', intPurchasing, defaultConfig);
-            config.registerEndpoint('customs-report', customsReport, defaultConfig);
-            config.registerEndpoint('merchandiser', merchandiser, defaultConfig);
-            config.registerEndpoint('deal-tracking', dealTracking, defaultConfig);
             config.registerEndpoint('sales', sales, defaultConfig);
-            config.registerEndpoint('weaving', weaving, defaultConfig);
             config.registerEndpoint('finance', finance, defaultConfig);
             config.registerEndpoint('garment-production', garmentProduction, defaultConfig);
             config.registerEndpoint('packing-inventory', packingInventory, defaultConfig);
-            config.registerEndpoint('dyeing', dyeing, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
             config.registerEndpoint('garment-shipping', garmentShipping, defaultConfig);
-            config.registerEndpoint('ItInven', ItInven, { headers: { Accept: '*/*', 'Sec-Fetch-Site': 'cross-site' }, mode: 'cors' });
         })
         .plugin("aurelia-authentication", baseConfig => {
             baseConfig.configure(authConfig);
