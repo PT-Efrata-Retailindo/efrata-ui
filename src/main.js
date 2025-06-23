@@ -39,8 +39,7 @@ export async function configure(aurelia) {
             var productionAzure = "https://com-efrata-service-finishing-printing-dev.azurewebsites.net/v1/";
             
             var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
-            var purchasingAzure = "http://localhost:62379/v1/";
-            //var purchasingAzure = "https://com-efrata-service-purchasing-dev.azurewebsites.net/v1/";
+            var purchasingAzure = "https://com-efrata-service-purchasing-dev.azurewebsites.net/v1/";
             
             var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
             var inventory = "https://dl-inventory-webapi-dev.azurewebsites.net/v1/";
