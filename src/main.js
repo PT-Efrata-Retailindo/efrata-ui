@@ -33,15 +33,23 @@ export async function configure(aurelia) {
 
             var core = "https://com-efrata-service-core-dev.azurewebsites.net/v1/";
             var auth = "https://com-efrata-service-auth-dev.azurewebsites.net/v1/";
+
             var production = "https://dl-production-webapi-dev.azurewebsites.net/v1/";
+            
             var productionAzure = "https://com-efrata-service-finishing-printing-dev.azurewebsites.net/v1/";
+            
             var purchasing = "https://dl-purchasing-webapi-dev.azurewebsites.net/v1/";
-            var purchasingAzure = "https://com-efrata-service-purchasing-dev.azurewebsites.net/v1/";
+            var purchasingAzure = "http://localhost:62379/v1/";
+            //var purchasingAzure = "https://com-efrata-service-purchasing-dev.azurewebsites.net/v1/";
+            
             var garmentPurchasing = "https://dl-purchasing-garment-webapi-dev.azurewebsites.net/v1/";
             var inventory = "https://dl-inventory-webapi-dev.azurewebsites.net/v1/";
+
             var inventoryAzure = "https://com-efrata-service-inventory-dev.azurewebsites.net/v1/";
+
             var garmentMasterPlan = "https://dl-garment-master-plan-webapi-dev.azurewebsites.net/v1/";
             var spMasterPlan = "https://dl-sp-master-plan-webapi.mybluemix.net/v1/";
+            
             var spinning = "https://com-efrata-service-spinning-dev.azurewebsites.net/";
             var intPurchasing = "https://com-efrata-service-internal-transfer-dev.azurewebsites.net/v1/";
             var customsReport = "https://com-efrata-service-support-dev.azurewebsites.net/v1/";
