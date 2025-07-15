@@ -38,6 +38,17 @@
         <au-multiline label="Kegunaan VB" value.bind="data.vbRealization.Header.VBRequestDocumentPurpose"
             read-only.bind="true" options.bind="controlOptions" show.bind="selectedVBRealization">
         </au-multiline>
+        <au-checkbox label="Claim"
+                 value.bind="data.vbRealization.Header.IsClaim"
+                 placeholder="claim"
+                 read-only.bind="!readOnly || readOnly"
+                 show.bind="selectedVBRealization"
+                 options.bind="controlOptions">
+        </au-checkbox>
+
+        <au-textbox value.bind="data.vbRealization.Header.ClaimType" read-only.bind="true" error.bind="error.ClaimType" label="Jenis Claim"
+            options.bind="controlOptions" show.bind = "data.vbRealization.Header.IsClaim">
+        </au-textbox>
 
         <au-collection if.bind="data.vbRealization.Header.Type == 2" items.bind="data.vbRealization.Items"
             columns.bind="columns" read-only.bind="true" show.bind="selectedVBRealization"
@@ -50,6 +61,60 @@
             options.bind="vbHeaderOptions" item-template="modules/expedition/vb-realization-verification/templates/item"
             footer-template="modules/expedition/vb-realization-verification/templates/item-footer">
         </au-collection>
+
+        <div class="row" show.bind="selectedVBRealization">
+            <div class="col-md-6">
+              <h4>File Dokumen</h4>
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <th class="col-md-4">File</th>
+                  <th class="col-md-4">Amount</th>
+                  <!-- <th if.bind="!readOnly" class="col-md-1">
+                    <button click.delegate="onAddDocument()" class="btn btn-success pull-right">+</button>
+                  </th> -->
+                </thead>
+                <tbody>
+                  <tr if.bind="!data.DocumentsFileName || data.DocumentsFileName.length < 1">
+                    <td colspan="3">
+                      Tidak ada file
+                    </td>
+                  </tr>
+                  <tr if.bind="data.vbRealization.DocumentsFileName" repeat.for="doc of data.vbRealization.DocumentsFileName">
+                    <td >
+                      <button class="btn btn-primary justify-content-center"
+                        click.delegate="downloadDocument($index)">${doc.DocumentsFileName}</button>
+                    </td>
+                    <!-- <td if.bind="!readOnly">
+                      <input if.bind="!documentsPathTemp[$index]" type="file" id="documentInput${$index}"
+                        value.bind="documentUpload" change.delegate="documentInputChanged($index)"
+                        accept=".pdf, .xls, .xlsx, .doc, .docx">
+                      <button if.bind="documentsPathTemp[$index]" class="btn btn-primary justify-content-center"
+                        click.delegate="downloadDocument($index)">${doc.documentName}</button>
+                      <span class="text-danger" if.bind="error.DocumentsFile[$index]">${error.DocumentsFile[$index]}</span>
+                    </td> -->
+                    <!-- <td if.bind="!readOnly">
+                     
+                      <input type="number"  read-only.bind="readOnly" id="amount${$index}" value.bind ="doc.amount" change.delegate="amountInputChanged($index)">
+                    </td> -->
+    
+                    <td >
+                     
+                      <!-- <input type="number"  read-only.bind="readOnly" id="amount${$index}" value.bind ="doc.DocumentAmount" change.delegate="amountInputChanged($index)" disabled> -->
+                      
+                 
+                        <input type="text" id="amount${$index}"  value.bind="formatAmount(doc.DocumentAmount)" change.delegate="amountInputChanged($index)" style="text-align: right; width : 100%" disabled>
+                      
+                    </td>
+                    <!-- <td if.bind="!readOnly">
+                      <button class="btn btn-danger pull-right" click.delegate="onRemoveDocument($index)">-</button>
+                    </td> -->
+                    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      
+        </div>
 
         <div class="btn-group pull-right">
             <button class="btn btn-success" click.delegate="sendToCashierCallback($event)" if.one-way="isRejected">Kirim ke Kasir</button>
