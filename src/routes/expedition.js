@@ -970,5 +970,21 @@ module.exports = [
         //permission: { "PDU": 1, "C9": 1, B9: 1, B4: 1, B1: 1, P1: 1, P2: 1 },
         iconClass: 'fa fa-dashboard'
     }
-  }
+  },
+  {
+    route: "realization-non-vb",
+    name: "realization-non-vb",
+    moduleId: "./modules/purchasing/realization-non-vb/index",
+    nav: true,
+    //title: "Realisasi VB non PO",
+    title: "Realisasi Pembayaran Tanpa VB",
+    auth: true,
+    settings: {
+      group: "finance",
+      subGroup: "vb",
+      permission: {"M39":1},
+      // permission: {"*": 1,},
+      iconClass: "fa fa-dashboard",
+    },
+  },
 ];
