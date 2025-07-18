@@ -17,7 +17,7 @@ export class UnitDeliveryOrderItemFabric {
       const errorMessages = Object.entries(this.error)
             .filter(([key, value]) => typeof value === 'string' && value !== "" && key === 'Colour')
             .map(([key, message]) => `${message}`);
-      alert("Data racking belum lengkap. Colour wajib diisi");
+      alert("Data racking belum lengkap.");
     }
     this.readOnly = this.options.readOnly || this.data.IsDisabled;
     this.isEdit = context.context.options.isEdit;

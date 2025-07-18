@@ -242,6 +242,11 @@ export class DataForm {
                     Items.IsSave = Items.Quantity > 0;
                     Items.IsDisabled = !(Items.Quantity > 0);
 
+                    Items.Rack = item.Rack;
+                    Items.Level = item.Level;
+                    Items.Box = item.Box;
+                    Items.Colour = item.Colour;
+                    Items.Area = item.Area;
                     this.data.Items.push(Items);
                 }
             }
