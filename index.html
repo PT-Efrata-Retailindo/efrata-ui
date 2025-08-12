@@ -9,8 +9,18 @@
   </head>
   <body aurelia-app="main">
     <div class="splash">
-      <div class="message"><%- htmlWebpackPlugin.options.metadata.title %></div>
-      <i class="fa fa-spinner fa-spin"></i>
+      <div class="splash-content">
+        <div class="splash-logo">
+          <div class="efrata-symbol"></div>
+        </div>
+        <div class="message"><%- htmlWebpackPlugin.options.metadata.title %></div>
+        <div class="initial-progress-container">
+          <div class="initial-progress-bar">
+            <div class="initial-progress-fill"></div>
+          </div>
+          <div class="initial-progress-text">Initializing Application...</div>
+        </div>
+      </div>
     </div>
     <% if (htmlWebpackPlugin.options.metadata.ENV === 'development') { %>
     <!-- Webpack Dev Server reload -->
