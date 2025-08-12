@@ -60,17 +60,148 @@ body {
 }
 
 .splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #3b6bb8 50%, #4a7bc8 75%, #5b8dd9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.splash-content {
   text-align: center;
-  margin: 10% 0 0 0;
-  box-sizing: border-box;
+  color: white;
+  max-width: 500px;
+  padding: 40px;
+}
+
+.splash-logo {
+  margin-bottom: 30px;
+}
+
+.splash-logo .efrata-symbol {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background-image: url('../images/efrata-logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  animation: splash-pulse 2s ease-in-out infinite alternate;
 }
 
 .splash .message {
-  font-size: 72px;
-  line-height: 72px;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.initial-progress-container {
+  width: 100%;
+}
+
+.initial-progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.initial-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1e3c72, #2a5298, #4a7bc8, #5b8dd9, #ffffff);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  animation: initial-loading-progress 4s ease-in-out infinite,
+             initial-gradient-shift 2s ease-in-out infinite;
+  width: 0%;
+}
+
+.initial-progress-text {
+  font-size: 1rem;
+  opacity: 0.8;
+  font-weight: 300;
+  animation: initial-fade-in-out 2s ease-in-out infinite;
+}
+
+/* Splash Animations */
+@keyframes initial-loading-progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 60%;
+  }
+  100% {
+    width: 90%;
+  }
+}
+
+@keyframes initial-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes splash-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes initial-fade-in-out {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design for Splash */
+@media (max-width: 768px) {
+  .splash-content {
+    padding: 20px;
+    max-width: 350px;
+  }
+  
+  .splash-logo .efrata-symbol {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .splash .message {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+  
+  .initial-progress-text {
+    font-size: 0.9rem;
+  }
 }
 
 .splash .fa-spinner {

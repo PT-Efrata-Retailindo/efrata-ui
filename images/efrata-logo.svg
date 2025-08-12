@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Efrata Logo Pattern - Enhanced version -->
+  <defs>
+    <style>
+      .efrata-gold { 
+        fill: #C5A572; 
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      }
+    </style>
+  </defs>
+  
+  <!-- Center large diamond -->
+  <rect x="75" y="75" width="50" height="50" transform="rotate(45 100 100)" class="efrata-gold"/>
+  
+  <!-- Top diamond -->
+  <rect x="85" y="30" width="30" height="30" transform="rotate(45 100 45)" class="efrata-gold"/>
+  
+  <!-- Bottom diamond -->
+  <rect x="85" y="140" width="30" height="30" transform="rotate(45 100 155)" class="efrata-gold"/>
+  
+  <!-- Left diamond -->
+  <rect x="30" y="85" width="30" height="30" transform="rotate(45 45 100)" class="efrata-gold"/>
+  
+  <!-- Right diamond -->
+  <rect x="140" y="85" width="30" height="30" transform="rotate(45 155 100)" class="efrata-gold"/>
+  
+  <!-- Corner diamonds -->
+  <rect x="55" y="55" width="25" height="25" transform="rotate(45 67.5 67.5)" class="efrata-gold"/>
+  <rect x="120" y="55" width="25" height="25" transform="rotate(45 132.5 67.5)" class="efrata-gold"/>
+  <rect x="55" y="120" width="25" height="25" transform="rotate(45 67.5 132.5)" class="efrata-gold"/>
+  <rect x="120" y="120" width="25" height="25" transform="rotate(45 132.5 132.5)" class="efrata-gold"/>
+</svg>
