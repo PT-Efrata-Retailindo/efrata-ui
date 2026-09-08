@@ -32,4 +32,12 @@ export class View {
                 this.list();
             });
     }
+
+    unlock() {
+        this.service.unlock(this.data)
+            .then(result => {
+                const encoded = Base64Helper.encode(this.data._id);
+                this.activate({ id: encoded });
+            });
+    }
 }

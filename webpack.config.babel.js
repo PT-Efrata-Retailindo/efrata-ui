@@ -25,7 +25,7 @@ process.env.BABEL_ENV = 'webpack'
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || (process.env.NODE_ENV = 'development')
 
 // basic configuration:
-const title = 'Efrata Management System'
+const title = 'Efrata Information System'
 const baseUrl = '/'
 const rootDir = path.resolve()
 const srcDir = path.resolve('src')
