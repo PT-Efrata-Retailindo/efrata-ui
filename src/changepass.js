@@ -2,6 +2,7 @@ import { Aurelia, inject } from 'aurelia-framework';
 import { AuthService } from "aurelia-authentication";
 import {Service} from './modules/auth/account/service';
 import '../styles/signin.css';
+import { PasswordValidator } from './utils/password-validator';
 
 @inject(AuthService,Service)
 export class ChangePass {
@@ -21,7 +22,15 @@ export class ChangePass {
     async activate(params) {
         console.log("param",params);
         this.username = params.Username;
-      }
+    }
+
+    attached() {
+        // Disable sidebar saat halaman changepass dibuka (class)
+        const sidebars = document.getElementsByClassName('side-nav-bar');
+        for (let sidebar of sidebars) {
+            sidebar.style.pointerEvents = 'none';
+        }
+    }
 
     save() {
         this.error = false;
@@ -29,18 +38,26 @@ export class ChangePass {
         this.data ={};
         if(this.password1 == this.password2)
         {
-            this.data.username =  this.username;
-            this.data.password = this.password1;
+            this.statusMessage = PasswordValidator.validate(this.password1);
 
-            this.service.updatePass(this.data)  
-            .then(result => {
-                alert("Kata Sandi Berhasil DiUbah");
-                this.authService.logout("#/login");
-            })
-            .catch(e => {
-                this.error = e;
+            if (this.statusMessage) {
+                alert(this.statusMessage);
                 this.disabledButton = false;
-            })
+            } else {
+                this.data.username =  this.username;
+                this.data.password = this.password1;
+
+                this.service.updatePass(this.data)  
+                .then(result => {
+                    alert("Kata Sandi Berhasil DiUbah");
+                    this.authService.logout("#/login");
+                    window.location.reload();
+                })
+                .catch(e => {
+                    this.error = e;
+                    this.disabledButton = false;
+                })
+            }
 
         }else
         {
