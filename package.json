@@ -97,6 +97,7 @@
     "font-awesome": "^4.7.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.6.0",
+    "jsencrypt": "^3.5.4",
     "jsx": "^0.9.89",
     "jwt-decode": "^2.1.0",
     "moment": "2.19.3",
