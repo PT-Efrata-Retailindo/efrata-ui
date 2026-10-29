@@ -6,8 +6,8 @@ import { PasswordValidator } from './utils/password-validator';
 
 @inject(AuthService)
 export class Login {
-    username="";
-    password="";
+    username = "";
+    password = "";
 
     usernameError = "";
     passwordError = "";
@@ -39,8 +39,8 @@ export class Login {
         }
 
         this.disabledButton = true;
-        const PUBLIC_KEY =`-----BEGIN PUBLIC KEY-----MIIBCgKCAQEAyUDO910BLcBrwdscKorajZKQJdR9TNnR/oqNcTpL10C4Ts9JQq4djGlcxdIG09rm23x5r54/eFmthu4lpeSBEPsS9O4ai0SF0mA39n5lvfNzWJ/JNBYswXU0S2BoTKdClbme+Z1hhqwksej+y2r+AzxiUay23Tn/AvIRxmPQg/66lD6zNyTWHOHAowhdOLUF8GagwdNOeCC0BZDdjP7Iyrk0d5XYeffMAcNR2vLTDpreMcjda7fGHbDTu8khsFTpFDwub0Pg96lxbFV9i//dZ7sPl+RpIrrLV9alCuDyz4+86Sl1jVqbwyh4j4XjgYck1CcmDg5cWN5iB9MnHJZaAQIDAQAB-----END PUBLIC KEY-----`;
-        
+        const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----MIIBCgKCAQEAs0BWxmbSYwoX5O6hGvBtTSYefO3mL6jtuY9cKGTNo+8FZ4VMWIipmf4RkF+1bVsE3XCRhptEM8XnqO8n4mR7QVOuxHQ3AUj0hVAQEAg6h4J1ywIRfukks7R3lY7AkZBYm9hb3k6189jKtx4eD/VKAbD7KMTl3uhCasLyApgCMvoZmx/ybWnXWNa1hmZyn3mk2tNZT6Q9OsKbsvLv2iUmSOrBj0flfQyNBaTknmcQkIYmaoZRClwAQltNa6jQrcoPVe9d3VTv4nJz9roaWjFt1fR81aKiCVGvVxSpwN0kHxTlu6k3J8ckVCjWtJEu4BnGyT455GatnKKQMrbJQJrvQQIDAQAB-----END PUBLIC KEY-----`;
+
         const credentials = {
             username: this.username,
             password: this.password,
@@ -57,7 +57,7 @@ export class Login {
                 console.log("success logged " + response);
 
                 this.statusMessage = PasswordValidator.validate(this.password);
-                
+
                 if (this.statusMessage) {
                     alert(this.statusMessage);
                     this.disabledButton = false;
@@ -102,7 +102,7 @@ export class Login {
                             msg = err.statusText;
                         }
                     }
-                } catch (e) {}
+                } catch (e) { }
 
                 this.generalError = msg;
             });
