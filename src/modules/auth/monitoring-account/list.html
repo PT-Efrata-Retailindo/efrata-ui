@@ -1,0 +1,34 @@
+<template>
+
+    <h1 class="page-header">Monitoring Account</h1>
+    <form class="form-horizontal">
+        <au-autocomplete 
+            value.bind="account" 
+            label="Username" 
+            placeholder="Pilih Username" 
+            query.bind="filterAccount"
+            loader.bind="accountLoader" 
+            key="_id"
+            text="username"
+            options.bind="controlOptions">
+        </au-autocomplete>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Menu</label>
+            <div class="col-sm-4">
+                <select class="form-control" value.bind="menu">
+                    <option repeat.for="item of menuList" value.bind="item">${item ? item : 'Semua Menu'}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="ExportToExcel()" class='btn btn-success'>Excel</button>
+                <button click.delegate="reset()" class='btn btn-success'>Reset</button>
+            </div>
+        </div>
+       
+    </form>
+</template>
