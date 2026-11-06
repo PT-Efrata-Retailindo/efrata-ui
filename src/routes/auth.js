@@ -52,4 +52,30 @@ module.exports = [
             permission : {'A3' : 1},
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: 'auth/monitoring-account',
+        name: 'monitoring-account',
+        moduleId: './modules/auth/monitoring-account/index',
+        nav: true,
+        title: 'Monitoring Account',
+        auth: true,
+        settings: {
+            group: "Auth",
+            permission : {'A4' : 1},
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: 'auth/failed-login-attempt',
+        name: 'failed-login-attempt',
+        moduleId: './modules/auth/failed-login-attempt/index',
+        nav: true,
+        title: 'Failed Login Attempt',
+        auth: true,
+        settings: {
+            group: "Auth",
+            permission : {'A5' : 1},
+            iconClass: 'fa fa-dashboard'
+        }
     }]
